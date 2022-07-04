@@ -6,6 +6,7 @@ orImg = cv2.imread("img.jpg", cv2.IMREAD_COLOR)
 orImg = cv2.resize(orImg, (640, 640), cv2.INTER_LINEAR)
 
 img = np.zeros((640, 640, 3))
+img_bw = np.zeros((640, 640, 3))
 z = 0.5
 
 store = np.zeros((640, 640))
@@ -29,14 +30,15 @@ for x in range(640):
             nx /= a
             ny /= a
         
-        nr = store[x,y] * z / mr * 320
+        v = store[x,y] / mr
+        nr = v * z * 320
         ox, oy = (int(nr * nx + 320), int(nr * ny + 320))
         ox, oy = min(max(ox, 0), 639), min(max(oy, 0), 639)
         img[x, y] = orImg[ox, oy] / 255
 
-        # v = store[x,y] / mr
-        # img[x, y] = [v, v, v]
+        img_bw[x, y] = [v, v, v]
 
-cv2.imshow("fisheyer v2", img)
+cv2.imshow("fisheyer v2 - fish-eye", img)
 cv2.imshow("fisheyer v2 - real", orImg)
+cv2.imshow("fisheyer v2 - black white", img_bw)
 cv2.waitKey(0)
