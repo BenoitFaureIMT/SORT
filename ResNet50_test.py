@@ -5,7 +5,7 @@ from numpy.linalg import norm
 
 model = tf.keras.applications.ResNet50(
     include_top=False,
-    weights="imagenet",
+    weights="weights_resnet.h5",
     input_shape=(224,224,3),
     pooling="avg"
 )
