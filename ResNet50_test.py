@@ -5,7 +5,7 @@ from numpy.linalg import norm
 
 model = tf.keras.applications.ResNet50(
     include_top=False,
-    weights="weights_resnet.h5",
+    weights="imagenet",
     input_shape=(224,224,3),
     pooling="avg"
 )
@@ -18,12 +18,13 @@ def get_pred(im_name):
     return model.predict(image)
 
 def get_dist(im1, im2):
-    d = im1[0] - im2[0]
+    return cust_dist(im1, im2)
+
+def cust_dist(im1, im2):
+    d = im1 - im2
     return norm(d)
 
 def _cosine_distance(a, b, data_is_normalized=False):
-    a = a[0][-1]
-    b = b[0][-1]
     if not data_is_normalized:
         a = np.asarray(a) / np.linalg.norm(a, axis=1, keepdims=True)
         b = np.asarray(b) / np.linalg.norm(b, axis=1, keepdims=True)
