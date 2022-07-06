@@ -13,7 +13,7 @@ pred_kal = [] #xywh liste des tracks prédits
 bbox = [] #xywh liste des détections
 min_cosine_dist = np.zeros((len(track_indices),len(detect_indices))) # Matrice N x M
 tracks = []
-detections = []
+detections = [] #xywh liste des détections
 
 def d1(i,j):
     mat = bbox[:][j]-pred_kal[i]
@@ -67,7 +67,8 @@ def min_cost_matching(func_dist_metric, track, detection, T, U, max_dist=0.9):
         else:
             matches.append((track_idx, detection_idx))
     return matches, unmatched_tracks, unmatched_detections
-    
+
+
 
 
 
