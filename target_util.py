@@ -54,4 +54,5 @@ class target(object):
 
         #Update
         self.state = self.pred_state + np.matmul(kalman_gain, innovation_mean)
+        print(self.state)
         self.cov = np.matmul(np.eye((self.in_size)) - np.matmul(kalman_gain, self.observation_matrix), self.pred_cov)
